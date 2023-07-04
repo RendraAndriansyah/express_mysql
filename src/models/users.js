@@ -18,4 +18,10 @@ const updateModelUser = (body, idUser) => {
 	return dbpool.execute(query);
 };
 
-export { getModelAllUsers, createModelUser, updateModelUser };
+const deleteModelUser = (id) => {
+	const query = `DELETE FROM users 
+                  WHERE id = ${id}`;
+	return dbpool.execute(query);
+};
+
+export { getModelAllUsers, createModelUser, updateModelUser, deleteModelUser };

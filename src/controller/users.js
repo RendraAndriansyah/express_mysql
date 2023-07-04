@@ -1,4 +1,9 @@
-import { getModelAllUsers, createModelUser, updateModelUser } from "../models/users.js";
+import {
+	getModelAllUsers,
+	createModelUser,
+	updateModelUser,
+	deleteModelUser,
+} from "../models/users.js";
 
 const getAllUsers = async (req, res) => {
 	try {
@@ -51,17 +56,24 @@ const updateUser = async (req, res) => {
 	}
 };
 
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
 	const { id } = req.params;
-	res.json({
-		message: "DELETE user success",
-		data: {
-			id: id,
-			name: "Andrianysah",
-			email: "rendrabootcamp@gmail.com",
-			alamat: "jakarta",
-		},
-	});
+
+	try {
+		await deleteModelUser(id);
+		res.json({
+			message: "DELETE user success",
+			data: {
+				id: id,
+				...req.body,
+			},
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: "Delete user failed",
+			serverMessage: error,
+		});
+	}
 };
 
 export { getAllUsers, createNewUsers, updateUser, deleteUser };
