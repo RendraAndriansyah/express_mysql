@@ -13,8 +13,8 @@ usersRouter.post("/", createNewUsers);
 // READ - GET
 usersRouter.get("/", getAllUsers);
 
-// UPDATE - PATCH
-usersRouter.patch(`/:id`, updateUser);
+// UPDATE - PUT
+usersRouter.put(`/:id`, updateUser);
 
 // DELETE - DELETE
 usersRouter.delete("/:id", deleteUser);

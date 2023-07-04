@@ -11,4 +11,11 @@ const createModelUser = (body) => {
 	return dbpool.execute(SQLQuery);
 };
 
-export { getModelAllUsers, createModelUser };
+const updateModelUser = (body, idUser) => {
+	const query = `UPDATE users 
+                  SET name='${body.name}', email='${body.email}', alamat='${body.alamat}'
+                  WHERE id =${idUser}`;
+	return dbpool.execute(query);
+};
+
+export { getModelAllUsers, createModelUser, updateModelUser };

@@ -1,4 +1,4 @@
-import { getModelAllUsers, createModelUser } from "../models/users.js";
+import { getModelAllUsers, createModelUser, updateModelUser } from "../models/users.js";
 
 const getAllUsers = async (req, res) => {
 	try {
@@ -31,13 +31,24 @@ const createNewUsers = async (req, res) => {
 	}
 };
 
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
 	const { id } = req.params;
-	console.log(`id user ${id}`);
-	res.json({
-		message: "UPDATE user success",
-		data: req.body,
-	});
+	const { body } = req;
+	try {
+		await updateModelUser(body, id);
+		res.json({
+			message: "UPDATE user success",
+			data: {
+				id,
+				...body,
+			},
+		});
+	} catch (error) {
+		res.status(404).json({
+			message: "Failed update data",
+			serverMessage: error,
+		});
+	}
 };
 
 const deleteUser = (req, res) => {
