@@ -8,6 +8,7 @@ const PORT = process.env.PORT;
 
 app.use(logRequestPrimary);
 app.use(express.json());
+app.use("/img", express.static("public/img"));
 
 app.use("/users", usersRouter);
 
