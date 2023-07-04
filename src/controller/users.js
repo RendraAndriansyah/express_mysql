@@ -1,8 +1,8 @@
-import { modelUsers } from "../models/users.js";
+import { getModelAllUsers, createModelUser } from "../models/users.js";
 
 const getAllUsers = async (req, res) => {
 	try {
-		const [data] = await modelUsers();
+		const [data] = await getModelAllUsers();
 		res.json({
 			message: "GET users succes",
 			data: data,
@@ -15,11 +15,20 @@ const getAllUsers = async (req, res) => {
 	}
 };
 
-const createNewUsers = (req, res) => {
-	res.json({
-		message: "Create new users Success ",
-		data: req.body,
-	});
+const createNewUsers = async (req, res) => {
+	const { body } = req;
+	try {
+		await createModelUser(body);
+		res.json({
+			message: "Create new users Success ",
+			data: body,
+		});
+	} catch (error) {
+		res.status(500).json({
+			message: "Failed Create user ",
+			serverMessage: error,
+		});
+	}
 };
 
 const updateUser = (req, res) => {
