@@ -22,16 +22,22 @@ const getAllUsers = async (req, res) => {
 
 const createNewUsers = async (req, res) => {
 	const { body } = req;
+
+	if (!body.name || !body.email || !body.alamat) {
+		return res.status(400).json({
+			message: `field cannot blank`,
+		});
+	}
 	try {
 		await createModelUser(body);
-		res.json({
+		res.status(201).json({
 			message: "Create new users Success ",
 			data: body,
 		});
 	} catch (error) {
 		res.status(500).json({
 			message: "Failed Create user ",
-			serverMessage: error,
+			serverMessage: error.message,
 		});
 	}
 };
