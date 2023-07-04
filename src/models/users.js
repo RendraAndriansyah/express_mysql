@@ -1,5 +1,4 @@
 import dbpool from "../config/database.js";
-
 const getAllUsers = () => {
 	const SQLQuery = "SELECT * FROM users";
 

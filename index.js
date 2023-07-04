@@ -1,14 +1,16 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import { logRequestPrimary } from "./src/middleware/logs.js";
 import usersRouter from "./src/routes/users.js";
-import { getAllUsers } from "./src/controller/users.js";
 const app = express();
+const PORT = process.env.PORT;
 
 app.use(logRequestPrimary);
 app.use(express.json());
 
 app.use("/users", usersRouter);
 
-app.listen(3131, () => {
-	console.log("Server running on port 3131");
+app.listen(PORT, () => {
+	console.log(`Server running ${PORT}`);
 });
